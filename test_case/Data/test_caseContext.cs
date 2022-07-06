@@ -15,5 +15,9 @@ namespace test_case.Data
         }
 
         public DbSet<test_case.Models.Test>? Test { get; set; }
+        public DbSet<test_case.Models.Sushi>? Sushi { get; set;}
+        public DbSet<test_case.Models.Wok>? Wok { get; set;}
+        public DbSet<test_case.Models.Menu>? Menu { get; set; }
+        public DbSet<test_case.Models.Roll>? Roll { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<test_case.Models.Roll>
+
+@{
 	ViewData["Title"] = "Роли";
 }
 
@@ -17,7 +19,7 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <!-- Сортування меню по черзі до низу, в 3 блоки -->
 
-        {% for el in menu %}
+        @foreach (var item in Model) {
         <div class="col ">
           <!-- Контейнер страви -->
           <div class="card shadow-sm">
@@ -25,22 +27,22 @@
             <figure class="figure">
               <!-- Контейнер для Зображення -->
 
-              <img src="{{ el.img }}" class="figure-img img-fluid rounded py-2">
+              <img src="@item.ImagePath" class="figure-img img-fluid rounded py-2">
               <!-- Зображення страви -->
 
             </figure>
             <div class="card-body">
               <!-- Тіло контейнеру -->
 
-              <strong>{{ el.name }}</strong>
+              <strong>@item.Name</strong>
               <!-- Назва страви -->
-              <p class="card-textcol " style="height: 50px">{{ el.text }}</p>
+              <p class="card-textcol " style="height: 50px">@item.Description</p>
               <!-- Склад страви -->
 
               <div class="d-flex justify-content-between align-items-center">
                 <!-- Контейнер для ціни та кнопки замовлення -->
 
-                <p>{{ el.price }} UAH</p>
+                <p>@item.Price UAH</p>
                 <!-- Ціна -->
 
                 <form method="post">
@@ -58,7 +60,7 @@
           </div>
         </div>
         <!-- Кінець контейнера страви -->
-        {% endfor %}
+        }
         <!-- Місце додавання нової страви з конструктора -->
 
         <!-- Місце додавання нової страви з конструктора -->
