@@ -1,0 +1,92 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+*@
+@{
+    ViewData["Title"] = "Головна Сторінка";
+}
+  <main class="">
+  <section class="container ">
+
+    <div class="bd-example">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <a asp-area="" asp-controller="Menu" asp-action="Sushi"><img src="~/images/1.jpg" class="d-block w-100" alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Суші</h5>
+              <p>Усі найпопулярніші види Рамену та інших видів супів з креветками і тд...</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a asp-area="" asp-controller="Menu" asp-action="Rolls"><img src="~/images/2.jpg" class="d-block w-100" alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Японські роли</h5>
+              <p>Найпопулярніші роли - Львів та його жителі знають, які вони</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a asp-area="" asp-controller="Menu" asp-action="Wok"><img src="~/images/3.jpg" class="d-block w-100" alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Смачна WOK локшина до вашого столу</h5>
+              <p>Смачна кухня - зручна доставка у Львові</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+  </section>
+</main>
+<!--реклама-->
+
+<!--головна сторінка опис-->
+
+<div class="container py-5" style="width: 1200px">
+  <div class="row">
+    <div class="col">
+
+      <h4>Смачна локшина до вашого столу
+		доставка вок Львів</h4>
+      <p>
+        Крім звичайної пшеничної муки, в китайській кухні використовуються гречана і рисова. Це надає стравам нові відтінки смаку.</p>
+      <footer class="blockquote-footer">WOK локшина: замовити ви можете наступні типи: </footer>
+      <ul>
+        <li>гречана локшина з куркою - для створення цієї страви ми використовуємо обсмажене філе курки, зелену цибулю, кунжут, соус теріякі, болгарський перець, ріпчасту цибулю, моркву і унікальну локшину;</li>
+        <li>рисова локшина зі свининою - секрет цієї страви полягає в способі приготування м'яса, до якого ми додаємо мікс овочів, прикрашаємо зеленою цибулею і кунжутом;</li>
+        <li>гречана локшина зі свининою - для цієї страви ми використовуємо ніжне свиняче філе, воно відмінно доповнює смак локшини;</li>
+        <li>рисова локшина з телятиною - щоб підкреслити смак ніжної локшини з телятиною, ми злегка обсмажуємо свіжі овочі і додаємо до них соус теріякі і кунжут - в результаті ви отримуєте страву, якою не хочеться ділитися;</li>
+        <li>гречана локшина з телятиною - для цієї страви ми використовуємо спеціальну тонку гречану локшину - соба, вона відмінно поєднується з обсмаженими овочами і ніжною телятиною;</li>
+        <li>рисова локшина з куркою - ми додаємо багато курки, локшини, болгарського перцю, моркви, цибулі і трохи соусу з кунжутом - що з цього вийшло - спробуйте самі! Готується локшина WOK в спеціальному посуді - це глибока сковорідка, на якій страва рівномірно просмажується і поглинає всю олію зі спеціями.</li>
+      </ul>
+
+    </div>
+    <div class="col py-3">
+      <img src="~/images/wok.jpg">
+
+    </div>
+  </div>
+  <p>Страви готують зі свіжого або сушеного тесту. Спочатку локшину кидають в окріп, де вона вариться кілька хвилин. В цей час на спеціальній сковороді обсмажують м'ясо, овочі і спеції. Через кілька хвилин до них додають локшину і смажать всі інгредієнти разом. Залежно від виду м'яса, яке використовують, для приготування страви знадобиться від 7 до 15 хвилин.</p>
+
+  <p>Якщо ви вирішили удон замовити, страва буде доставлена в зручних картонних коробках - їх легко розігріти і зручно їсти. Щоб вам було зручно їсти, ми пропонуємо на вибір навчальні або звичайні палички.</p>
+  <!--головна сторінка кінець тексту-->
+
+</div>

@@ -1,0 +1,104 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Кошик";
+}
+<div class="container">
+  <!-- Контейнер Кошику -->
+  <main>
+    <div>
+      <div class="col py-3">
+        <!-- Виділення місця для списку замовлень -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3"> <!-- Сортування для елементу назви  -->
+          <span class="text-dark">Замовлення</span>
+
+        </h4>
+        <ul class="list-group mb-3">
+          <!-- Список кошику, сам кошик -->
+
+          {% for el in bucket %}
+          <li class="list-group-item justify-content-between lh-sm">
+            <!-- Комірка в списку -->
+
+            <div class="row ">
+              <!-- Сортування -->
+
+              <div class="col-md-2">
+                <!-- Виділення місця на 2 пункти -->
+                <img src="{{ el.img }}" class="img-fluid rounded-start">
+                <!-- Зображення страви -->
+              </div>
+              <div class="col-md-9">
+                <!-- Виділення місця на 9 пунктів -->
+
+                <div class="card-body">
+                  <!-- тіло комірки -->
+
+                  <h5 class="card-title">{{ el.name }}</h5>
+                  <!-- Назва страви -->
+                  <p class="card-text">{{ el.text }}</p>
+                  <!-- Склад страви -->
+
+                </div>
+
+              </div>
+              <div class="col">
+                <!-- Комірка на 1 пункт -->
+                <span class="text-muted ">{{ el.price }} UAH</span>
+                <!-- Ціна товару -->
+                <a href="/bucket/{{el.id}}" class="btn btn-danger">X</a>
+              </div>
+          </li>
+
+          <!-- Кінець комірки в списку -->
+          {% endfor %}
+          <!-- Примір комірок списку -->
+
+          <!-- Кінець приміру списку -->
+
+          <!--          <li class="list-group-item d-flex justify-content-between bg-light">&lt;!&ndash; Комірка промо знижки &ndash;&gt;-->
+          <!--            <div class="text-success">-->
+          <!--              <h6 class="my-0">Промо код</h6>-->
+          <!--              <small>найдешевша позиція з 5 безкоштовна</small>&lt;!&ndash; Назва акції &ndash;&gt;-->
+
+          <!--            </div>-->
+          <!--            <span class="text-muted">-75.00 грн</span>&lt;!&ndash; Ціна акції &ndash;&gt;-->
+          <!--          </li>&lt;!&ndash; Кінець комірки промо &ndash;&gt;-->
+
+          <li class="list-group-item d-flex justify-content-between">
+            <!-- Комірка вартості -->
+            <span>Вартість (ГРН)</span>
+
+            <strong>{{total_sum}} UAH</strong>
+            <!-- загальна сумма до сплати -->
+
+          </li>
+          <!-- Кінець комірки вартості -->
+
+        </ul>
+        <!-- Кінець кошику, списку замовлень -->
+
+        <form class="card p-2">
+          <!-- Контейнер вводу промо -->
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Промо код">
+            <!-- Ввід промо -->
+            <button type="submit" class="btn btn-secondary">Ввести</button>
+            <!-- Кнопка застосування введеного промо -->
+          </div>
+        </form>
+        </div>
+
+        <hr class="my-4">
+        <form method="post">
+          <button class="w-100 btn btn-success btn-lg" type="submit">Оплата</button>
+          <!-- Кнопка переходу до оплати та обробки введеної інформації -->
+        </form>
+
+
+      </div>
+
+  </main>
+</div>
+<!-- Кінець кошику -->

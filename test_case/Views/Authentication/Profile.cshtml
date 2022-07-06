@@ -1,0 +1,128 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    ViewData["Title"] = "Профіль";
+}
+<main class="py-3">
+  <section class="container">
+
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+      <table class="table table-hover">
+        <tbody>
+          <tr class="table-success">
+            <th>{{message}}</th>
+
+          </tr>
+        </tbody>
+      </table>
+      {% endfor %} {% endif %} {% endwith %}
+    </header>
+
+    <div class="row">
+
+      <div class="col-md-9">
+
+        <h4>Останнє замовлення</h4>
+
+        <div class="card mb-3" style="max-width: 1040px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{last}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+
+                <p class="card-text">Цей qr-код, містить в собі ваше замовлення, проскануйте на касі що б отримати замовлення.</p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-3">
+
+        <div class="card" style="width: 18rem;">
+
+          <img src=@ViewBag.Message class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <figure class="text-center">
+              <blockquote class="blockquote">
+                <h5>{{username}}</h5>
+              </blockquote>
+              <figcaption class="blockquote-footer">
+                {{email}}
+              </figcaption>
+            </figure>
+
+            <button type="button" class="w-100 rounded-pill btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Змінити нік
+            </button>
+
+            <!-- Modal -->
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+
+                <div class="modal-content">
+                  <form action="/edit_profile" method="POST">
+                    <div class="modal-header">
+
+                      <h5 class="modal-title" id="exampleModalLabel">Змінити імя</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <input type="text" name="change_username" class="form-control" id="floatingInput" placeholder="Імя*" required>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                      <button type="submit" class="btn btn-success">Зберегти зміни</button>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown text-end py-3">
+              <strong class="dropdown-toggle " role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    More...
+  </strong>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a href="/check" class="dropdown-item">Загальні чеки</a></li>
+                <li>
+                  <form action="/logout" method="POST">
+                    <button type="submit" class="dropdown-item">Logout</button>
+                  </form>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="nav-link px-2 text-dark"><strong>Останній візит</strong> {{last_seen}}</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="nav-link text-dark px-2">Кількість замовлень  <strong>{{total_orders}}</strong></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr>
+    <!-- Button trigger modal -->
+
+    </div>
+
+  </section>
+
+</main>

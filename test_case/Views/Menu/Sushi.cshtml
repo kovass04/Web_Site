@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Суші";
+}
+<main>
+  <!-- Контейнер Меню -->
+
+  <div class="album py-5">
+    <!-- Контейнер Меню  з відступом в 5 одне від одного-->
+
+    <div class="container">
+      <!-- Контейнер Меню -->
+
+      <h2>Суші</h2>
+      <!-- Назва продукту -->
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <!-- Сортування меню по черзі до низу, в 3 блоки -->
+
+        {% for el in menu %}
+        <div class="col ">
+          <!-- Контейнер страви -->
+
+          <div class="card shadow-sm">
+
+            <figure class="figure">
+              <!-- Контейнер для Зображення -->
+
+              <img src="{{ el.img }}" class="figure-img img-fluid rounded py-2">
+              <!-- Зображення страви -->
+
+            </figure>
+            <div class="card-body">
+              <!-- Тіло контейнеру -->
+
+              <strong>{{ el.name }}</strong>
+              <!-- Назва страви -->
+              <p class="card-text col " style="height: 10px">{{ el.text }}</p>
+              <!-- Склад страви -->
+
+              <div class="d-flex justify-content-between align-items-center">
+                <!-- Контейнер для ціни та кнопки замовлення -->
+
+                <p>{{ el.price }} UAH</p>
+                <!-- Ціна -->
+                <form method="post">
+
+                  <input type="hidden" name="name" id="name" value="{{el.name}}" width="1" height="1">
+                  <input type="hidden" name="price" id="price" value="{{el.price}}" width="1" height="1">
+                  <input type="hidden" name="text" id="text" value="{{el.text}}" width="1" height="1">
+                  <input type="hidden" name="img" id="img" value="{{el.img}}" width="1" height="1">
+                  <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
+                  <button type="submit" class="btn btn-success ">Додати</button>
+                </form>
+                <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Кінець контейнера страви -->
+        {% endfor %}
+        <!-- Місце додавання нової страви з конструктора -->
+
+        <!-- Місце додавання нової страви з конструктора -->
+
+      </div>
+      <!-- Кінець сортування меню по черзі до низу, в 3 блоки -->
+
+    </div>
+    <!-- Контейнер Меню  -->
+
+  </div>
+  <!-- Кінець контейнера Меню  з відступом в 5 одне від одного-->
+
+</main>
+<!-- Кінець контейнера Меню -->

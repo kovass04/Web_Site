@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+    ViewData["Title"] = "Логін";
+}
+<body>
+  <main class="text-center">
+    <section class="container py-5" style="width: 500px">
+
+      <form class="py-5" method="POST">
+
+        <h1 class="h3 mb-3 fw-normal">Введіть логін</h1>
+        <h1 class="h5 mb-3 fw-normal">У вас ще немає аккаунта? <a href="/registration">Зареєструватися.</a> </h1>
+        <h1 class="h5 mb-3 fw-normal">Забули пароль? <a href="/reset_password">Відновити пароль.</a> </h1>
+        <div class="form-floating mb-3">
+          <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <table class="table table-hover">
+          <tbody>
+            <tr class="table-info">
+              <th>{{message}}</th>
+
+            </tr>
+          </tbody>
+        </table>
+
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="checkbox mt-2 mb-2">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button type="submit" class="w-100 btn btn-lg btn-success " asp-area="" asp-controller="Authentication" asp-action="Profile">Увійти</button>
+      </form>
+
+    </section>
+
+  </main>
+  <script src="https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!--ОБОВЯЗКОВА ЧАСТИНА КОДУ-->
+</body>
