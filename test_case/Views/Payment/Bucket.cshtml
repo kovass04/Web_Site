@@ -1,7 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model IEnumerable<test_case.Models.Bucket>
 @{
+    
     ViewData["Title"] = "Кошик";
 }
 <div class="container">
@@ -17,7 +17,8 @@
         <ul class="list-group mb-3">
           <!-- Список кошику, сам кошик -->
 
-          {% for el in bucket %}
+          @foreach (var item in Model)
+          {
           <li class="list-group-item justify-content-between lh-sm">
             <!-- Комірка в списку -->
 
@@ -26,7 +27,7 @@
 
               <div class="col-md-2">
                 <!-- Виділення місця на 2 пункти -->
-                <img src="{{ el.img }}" class="img-fluid rounded-start">
+                <img src="@item.ImagePath" class="img-fluid rounded-start">
                 <!-- Зображення страви -->
               </div>
               <div class="col-md-9">
@@ -35,9 +36,9 @@
                 <div class="card-body">
                   <!-- тіло комірки -->
 
-                  <h5 class="card-title">{{ el.name }}</h5>
+                  <h5 class="card-title">@item.Name</h5>
                   <!-- Назва страви -->
-                  <p class="card-text">{{ el.text }}</p>
+                  <p class="card-text">@item.Description</p>
                   <!-- Склад страви -->
 
                 </div>
@@ -45,14 +46,15 @@
               </div>
               <div class="col">
                 <!-- Комірка на 1 пункт -->
-                <span class="text-muted ">{{ el.price }} UAH</span>
+                <span class="text-muted ">@item.Price UAH</span>
                 <!-- Ціна товару -->
-                <a href="/bucket/{{el.id}}" class="btn btn-danger">X</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">X</a>
               </div>
+             </div>
           </li>
 
           <!-- Кінець комірки в списку -->
-          {% endfor %}
+          }
           <!-- Примір комірок списку -->
 
           <!-- Кінець приміру списку -->
@@ -70,7 +72,7 @@
             <!-- Комірка вартості -->
             <span>Вартість (ГРН)</span>
 
-            <strong>{{total_sum}} UAH</strong>
+            <strong>@ViewBag.totalPrice UAH</strong>
             <!-- загальна сумма до сплати -->
 
           </li>

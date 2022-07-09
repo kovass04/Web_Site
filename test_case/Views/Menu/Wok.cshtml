@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<test_case.Models.Wok>
+@{
     ViewData["Title"] = "Вок";
 }
 
@@ -16,46 +17,50 @@
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <!-- Сортування меню по черзі до низу, в 3 блоки -->
-        {% for el in menu %}
-        <div class="col ">
+        @foreach (var item in Model)
+         {
+                    <div class="col ">
           <!-- Контейнер страви -->
           <div class="card shadow-sm">
 
             <figure class="figure">
               <!-- Контейнер для Зображення -->
 
-              <img src="{{ el.img }}" class="figure-img img-fluid rounded py-2">
+              <img src="@item.ImagePath" class="figure-img img-fluid rounded py-2">
               <!-- Зображення страви -->
 
             </figure>
             <div class="card-body">
               <!-- Тіло контейнеру -->
 
-              <strong>{{ el.name }}</strong>
+              <strong>@item.Name</strong>
               <!-- Назва страви -->
-              <p class="card-text col " style="height: 100px">{{ el.text }}</p>
+              <p class="card-textcol " style="height: 50px">@item.Description</p>
               <!-- Склад страви -->
 
               <div class="d-flex justify-content-between align-items-center">
                 <!-- Контейнер для ціни та кнопки замовлення -->
 
-                <p>{{ el.price }} UAH</p>
+                <p>@item.Price UAH</p>
                 <!-- Ціна -->
-                <form method="post">
 
-                  <input type="hidden" name="name" id="name" value="{{el.name}}" width="1" height="1">
-                  <input type="hidden" name="price" id="price" value="{{el.price}}" width="1" height="1">
-                  <input type="hidden" name="text" id="text" value="{{el.text}}" width="1" height="1">
-                  <input type="hidden" name="img" id="img" value="{{el.img}}" width="1" height="1">
+                <form asp-action="Wok">
+
+                  <input type="hidden" name="name" id="name" value="@item.Name">
+                  <input type="hidden" name="price" id="price" value="@item.Price">
+                  <input type="hidden" name="description" id="description" value="@item.Description">
+                  <input type="hidden" name="imagepath" id="imagepath" value="@item.ImagePath">
                   <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
-                  <button type="submit" class="btn btn-success ">Додати</button>
+                  
+                  <button type="submit" value="Wok" class="btn btn-success ">Додати</button>
                 </form>
+                <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
               </div>
             </div>
           </div>
         </div>
         <!-- Кінець контейнера страви -->
-        {% endfor %}
+        }
         <!-- Місце додавання нової страви з конструктора -->
 
         <!-- Місце додавання нової страви з конструктора -->

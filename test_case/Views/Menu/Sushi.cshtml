@@ -46,14 +46,15 @@
                 <p>@item.Price UAH</p>
                 <!-- Ціна -->
 
-                <form method="post">
+                <form asp-action="Sushi">
 
-                  <input type="hidden" name="name" id="name" value="{{el.name}}" >
-                  <input type="hidden" name="price" id="price" value="{{el.price}}" >
-                  <input type="hidden" name="text" id="text" value="{{el.text}}" >
-                  <input type="hidden" name="img" id="img" value="{{el.img}}" >
+                  <input type="hidden" name="name" id="name" value="@item.Name">
+                  <input type="hidden" name="price" id="price" value="@item.Price">
+                  <input type="hidden" name="description" id="description" value="@item.Description">
+                  <input type="hidden" name="imagepath" id="imagepath" value="@item.ImagePath">
                   <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
-                  <button type="submit" class="btn btn-success ">Додати</button>
+                  
+                  <button type="submit" value="Sushi" class="btn btn-success ">Додати</button>
                 </form>
                 <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
               </div>

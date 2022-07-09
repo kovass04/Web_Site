@@ -45,14 +45,15 @@
                 <p>@item.Price UAH</p>
                 <!-- Ціна -->
 
-                <form method="post">
+                <form asp-action="Rolls">
 
-                  <input type="hidden" name="name" id="name" value="{{el.name}}" width="1" height="1">
-                  <input type="hidden" name="price" id="price" value="{{el.price}}" width="1" height="1">
-                  <input type="hidden" name="text" id="text" value="{{el.text}}" width="1" height="1">
-                  <input type="hidden" name="img" id="img" value="{{el.img}}" width="1" height="1">
+                  <input type="hidden" name="name" id="name" value="@item.Name">
+                  <input type="hidden" name="price" id="price" value="@item.Price">
+                  <input type="hidden" name="description" id="description" value="@item.Description">
+                  <input type="hidden" name="imagepath" id="imagepath" value="@item.ImagePath">
                   <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
-                  <button type="submit" class="btn btn-success ">Додати</button>
+                  
+                  <button type="submit" value="Rolls" class="btn btn-success ">Додати</button>
                 </form>
                 <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
               </div>
