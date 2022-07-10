@@ -20,16 +20,18 @@ namespace test_case.Controllers
         }
         public IActionResult Index()
         {
+            
             return View();
         }
-
+        
         public async Task<IActionResult> Bucket()
         {
+            TotalPrice();
             return _context.Bucket != null ?
                         View(await _context.Bucket.ToListAsync()) :
                         Problem("Entity set 'test_caseContext.Test'  is null.");
         }
-
+        public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
         public async Task<IActionResult> Delete(int id)
         {
             if (_context.Bucket == null)
@@ -45,16 +47,22 @@ namespace test_case.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Bucket));
         }
-
-
-       /* public decimal Total()
+        [HttpPost]
+        public async Task<IActionResult> DeleteAll()
         {
-            decimal totalAmount = 0;
-            if (_context.Bucket != null)
+            if (_context.Bucket == null)
             {
-                totalAmount = _context.Bucket.Sum(x => x.Price);
+                return RedirectToAction(nameof(Bucket));
             }
-            return totalAmount;
-        } */
+
+            var toDelete = await _context.Bucket.Select(a => new Bucket { Id = a.Id }).ToListAsync();
+            if (Bucket != null)
+            {
+                _context.Bucket.RemoveRange(toDelete);
+            }
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Bucket));
+        }
     }
 }

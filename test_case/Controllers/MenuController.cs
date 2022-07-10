@@ -23,20 +23,24 @@ namespace test_case.Controllers
 
             return View();
         }
+        public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
         public async Task<IActionResult> Wok()
         {
+            TotalPrice();
             return _context.Wok != null ?
                         View(await _context.Wok.ToListAsync()) :
                         Problem("Entity set 'TaiFoodContext.Wok'  is null.");
         }
         public async Task<IActionResult> Sushi()
         {
+            TotalPrice();
             return _context.Sushi != null ?
                         View(await _context.Sushi.ToListAsync()) :
                         Problem("Entity set 'TaiFoodContext.Sushi'  is null.");
         }
         public async Task<IActionResult> Rolls()
         {
+            TotalPrice();
             return _context.Roll != null ?
                         View(await _context.Roll.ToListAsync()) :
                         Problem("Entity set 'TaiFoodContext.Rolls'  is null.");

@@ -22,15 +22,10 @@ namespace test_case.Controllers
 
         public IActionResult Index()
         {
-            decimal totalAmount = 0;
-            if (_context.Bucket != null)
-            {
-                totalAmount = _context.Bucket.Sum(x => x.Price);
-                ViewBag.totalPrice = totalAmount;
-            }
-            else ViewBag.totalPrice = totalAmount;
+            TotalPrice();
             return View();
         }
+        public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
 
         public IActionResult Privacy()
         {
