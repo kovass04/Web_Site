@@ -20,5 +20,6 @@ namespace test_case.Data
         public DbSet<test_case.Models.Menu>? Menu { get; set; }
         public DbSet<test_case.Models.Roll>? Roll { get; set; }
         public DbSet<test_case.Models.Bucket>? Bucket { get; set; }
+        public DbSet<test_case.Models.Check>? Check { get; set; }
     }
 }

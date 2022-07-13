@@ -8,7 +8,7 @@
   <!-- Контейнер Кошику -->
   <main>
     <div>
-      <div class="col py-3">
+      <d class="col py-3">
         <!-- Виділення місця для списку замовлень -->
         <h4 class="d-flex justify-content-between align-items-center mb-3"> <!-- Сортування для елементу назви  -->
           <span class="text-dark">Замовлення</span>
@@ -48,6 +48,7 @@
                 <!-- Комірка на 1 пункт -->
                 <span class="text-muted ">@item.Price UAH</span>
                 <!-- Ціна товару -->
+                
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">X</a>
               </div>
              </div>
@@ -67,7 +68,16 @@
           <!--            </div>-->
           <!--            <span class="text-muted">-75.00 грн</span>&lt;!&ndash; Ціна акції &ndash;&gt;-->
           <!--          </li>&lt;!&ndash; Кінець комірки промо &ndash;&gt;-->
-
+          <form asp-action="Gener">
+            
+            <input name="text" class="form-control" />
+            <input type="submit" value="Gener" class="btn btn-primary" />     
+            
+ 
+    </form>
+    <div>
+        <img src="@ViewBag.text" class="img-fluid rounded-start">
+    </div>
           <li class="list-group-item d-flex justify-content-between">
             <!-- Комірка вартості -->
             <span>Вартість (ГРН)</span>

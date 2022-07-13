@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using test_case.Data;
 using test_case.Models;
+using IronBarCode;
+
 
 namespace test_case.Controllers
 {
     public class PaymentController : Controller
     {
+
         private readonly test_caseContext _context;
 
         public PaymentController(test_caseContext context)
@@ -20,12 +23,14 @@ namespace test_case.Controllers
         }
         public IActionResult Index()
         {
-            
+
             return View();
         }
-        
+
         public async Task<IActionResult> Bucket()
         {
+            ViewBag.text = "/images/qr_codes/QuickStart.jpg";
+
             TotalPrice();
             return _context.Bucket != null ?
                         View(await _context.Bucket.ToListAsync()) :
@@ -56,12 +61,20 @@ namespace test_case.Controllers
             }
 
             var toDelete = await _context.Bucket.Select(a => new Bucket { Id = a.Id }).ToListAsync();
+
             if (Bucket != null)
             {
                 _context.Bucket.RemoveRange(toDelete);
             }
             await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Bucket));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Gener()
+        {
+            string generatebarcode = Request.Form["text"];
+            GeneratedBarcode barcode = IronBarCode.BarcodeWriter.CreateBarcode(generatebarcode, BarcodeWriterEncoding.QRCode).SaveAsJpeg(@"wwwroot\images\qr_codes\QuickStart.jpg");
             return RedirectToAction(nameof(Bucket));
         }
     }

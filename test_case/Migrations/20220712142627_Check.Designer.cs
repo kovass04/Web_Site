@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using test_case.Data;
 
@@ -10,9 +11,10 @@ using test_case.Data;
 namespace test_case.Migrations
 {
     [DbContext(typeof(test_caseContext))]
-    partial class test_caseContextModelSnapshot : ModelSnapshot
+    [Migration("20220712142627_Check")]
+    partial class Check
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

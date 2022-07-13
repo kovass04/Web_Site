@@ -3,6 +3,7 @@ using test_case.Models;
 using Microsoft.Extensions.DependencyInjection;
 using test_case.Data;
 
+
 var builder = WebApplication.CreateBuilder(args); //
 builder.Services.AddDbContext<test_caseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("test_caseContext") ?? throw new InvalidOperationException("Connection string 'test_caseContext' not found.")));
@@ -12,7 +13,6 @@ builder.Services.AddControllersWithViews();
 
 // �������� ������ ����������� �� ����� ������������
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
 
 var app = builder.Build(); //
 
