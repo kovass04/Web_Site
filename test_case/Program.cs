@@ -2,6 +2,8 @@
 using test_case.Models;
 using Microsoft.Extensions.DependencyInjection;
 using test_case.Data;
+using test_case.Services;
+using test_case.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args); //
@@ -10,7 +12,7 @@ builder.Services.AddDbContext<test_caseContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddTransient<IBufferedFileUploadService, BufferedFileUploadLocalService>();
 // �������� ������ ����������� �� ����� ������������
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 

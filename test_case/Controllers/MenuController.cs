@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using test_case.Data;
 using test_case.Models;
+using test_case.Interfaces;
+
+
 
 namespace test_case.Controllers
 {
     public class MenuController : Controller
     {
         private readonly test_caseContext _context;
+        readonly IBufferedFileUploadService _bufferedFileUploadService;
 
-        public MenuController(test_caseContext context)
+        public MenuController(test_caseContext context, IBufferedFileUploadService bufferedFileUploadService)
         {
             _context = context;
+            _bufferedFileUploadService = bufferedFileUploadService;
         }
         public IActionResult Index()
         {
@@ -45,6 +50,43 @@ namespace test_case.Controllers
                         View(await _context.Roll.ToListAsync()) :
                         Problem("Entity set 'TaiFoodContext.Rolls'  is null.");
 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(IFormFile file, [Bind("Id,Name,Price,Description,ImagePath")] Wok wok)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _bufferedFileUploadService.UploadFile(file);
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction(nameof(Wok));
+                }
+               
+                wok.ImagePath = "/images/" + file.FileName;
+                _context.Add(wok);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Wok));
+            }
+            return View(wok);
+        }
+       
+        
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add2([Bind("Id,Name,Price,Description,ImagePath")] Roll roll)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(roll);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Rolls));
+            }
+            return View(roll);
         }
 
         [HttpPost]
@@ -84,5 +126,6 @@ namespace test_case.Controllers
             }
             return View(bucket);
         }
+        
     }
 }

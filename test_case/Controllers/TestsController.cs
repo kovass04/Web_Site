@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using test_case.Data;
 using test_case.Models;
 
+
+
 namespace test_case.Controllers
 {
     public class TestsController : Controller
@@ -22,6 +24,7 @@ namespace test_case.Controllers
         // GET: Tests
         public async Task<IActionResult> Index()
         {
+
               return _context.Test != null ? 
                           View(await _context.Test.ToListAsync()) :
                           Problem("Entity set 'test_caseContext.Test'  is null.");
@@ -44,7 +47,7 @@ namespace test_case.Controllers
 
             return View(test);
         }
-
+        
         // GET: Tests/Create
         public IActionResult Create()
         {
@@ -66,6 +69,7 @@ namespace test_case.Controllers
             }
             return View(test);
         }
+        
 
         // GET: Tests/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -159,5 +163,6 @@ namespace test_case.Controllers
         {
           return (_context.Test?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        
     }
 }
