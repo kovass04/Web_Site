@@ -1,0 +1,44 @@
+﻿
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    
+}
+
+  <main class="text-center">
+
+    <section class="container py-5" style="width: 500px">
+      <form id="account" method="post">
+
+        <h1 class="h3 mb-3 fw-normal">Введіть логін</h1>
+        <h1 class="h5 mb-3 fw-normal">У вас ще немає аккаунта? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Зареєструватися</a></a> </h1>
+        <h1 class="h5 mb-3 fw-normal">Забули пароль? <a id="forgot-password" asp-page="./ForgotPassword">Відновити пароль.</a> </h1>
+        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+        <div class="form-floating mb-3">
+          <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true">
+          <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating">
+          <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+          <label for="floatingPassword">Password</label>
+        </div>
+     
+        <div class="checkbox mt-2 mb-2">
+          <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+        </div>
+        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-success ">Увійти</button>
+      </form>
+
+    </section>
+
+  </main>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

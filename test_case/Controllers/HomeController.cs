@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using test_case.Data;
+using test_case.Areas.Identity.Data;
 using test_case.Models;
 
 namespace test_case.Controllers
@@ -14,12 +14,12 @@ namespace test_case.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly test_caseContext _context;
+
         public HomeController(ILogger<HomeController> logger, test_caseContext context)
         {
             _logger = logger;
             _context = context;
         }
-
         public IActionResult Index()
         {
             TotalPrice();
@@ -38,6 +38,6 @@ namespace test_case.Controllers
         }
 
     }
-       
-    
+
+
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using test_case.Data;
+using test_case.Areas.Identity.Data;
 using test_case.Models;
 using IronBarCode;
 

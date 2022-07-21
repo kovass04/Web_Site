@@ -69,7 +69,8 @@
 
           <a class="btn btn-warning me-2" asp-area="" asp-controller="Payment" asp-action="Bucket">Кошик</a>
 
-          <a asp-area="" asp-controller="Authentication" asp-action="Login" type="button" class=""><img class="" src="~/images/login.png" width="52"></a>
+          <partial name="_LoginPartial"/>
+          
         </div>
         <!-- Управління кошиком -->
       </div>
@@ -77,7 +78,7 @@
 
   </header>
   <!-- Кінець Шапки сайту -->
-
+  
   @RenderBody()
 
   <!-- back, для повторення в Flask. Не змінна частина коду. ОБОВЯЗКОВА ЧАСТИНА КОДУ-->

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using test_case.Data;
+using test_case.Areas.Identity.Data;
 using test_case.Models;
 using test_case.Interfaces;
 
@@ -15,6 +15,7 @@ namespace test_case.Controllers
 {
     public class MenuController : Controller
     {
+
         private readonly test_caseContext _context;
         readonly IBufferedFileUploadService _bufferedFileUploadService;
 
@@ -65,7 +66,7 @@ namespace test_case.Controllers
                 {
                     return RedirectToAction(nameof(Wok));
                 }
-               
+
                 wok.ImagePath = "/images/" + file.FileName;
                 _context.Add(wok);
                 await _context.SaveChangesAsync();
@@ -73,9 +74,9 @@ namespace test_case.Controllers
             }
             return View(wok);
         }
-       
-        
-        
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add2([Bind("Id,Name,Price,Description,ImagePath")] Roll roll)
@@ -126,6 +127,6 @@ namespace test_case.Controllers
             }
             return View(bucket);
         }
-        
+
     }
 }

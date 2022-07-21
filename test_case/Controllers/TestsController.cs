@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using test_case.Data;
+using test_case.Areas.Identity.Data;
 using test_case.Models;
 
 
@@ -25,9 +25,9 @@ namespace test_case.Controllers
         public async Task<IActionResult> Index()
         {
 
-              return _context.Test != null ? 
-                          View(await _context.Test.ToListAsync()) :
-                          Problem("Entity set 'test_caseContext.Test'  is null.");
+            return _context.Test != null ?
+                        View(await _context.Test.ToListAsync()) :
+                        Problem("Entity set 'test_caseContext.Test'  is null.");
         }
 
         // GET: Tests/Details/5
@@ -47,7 +47,7 @@ namespace test_case.Controllers
 
             return View(test);
         }
-        
+
         // GET: Tests/Create
         public IActionResult Create()
         {
@@ -69,7 +69,7 @@ namespace test_case.Controllers
             }
             return View(test);
         }
-        
+
 
         // GET: Tests/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -154,15 +154,15 @@ namespace test_case.Controllers
             {
                 _context.Test.Remove(test);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TestExists(int id)
         {
-          return (_context.Test?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Test?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        
+
     }
 }
