@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using test_case.Areas.Identity.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using test_case.Models;
+
 namespace test_case.Areas.Identity.Data;
 
 public class test_caseContext : IdentityDbContext<test_caseUser>

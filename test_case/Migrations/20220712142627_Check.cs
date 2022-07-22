@@ -30,7 +30,7 @@ namespace test_case.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            
+
             migrationBuilder.DropTable(
                 name: "Check");
         }

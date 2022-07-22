@@ -23,14 +23,14 @@ namespace test_case.Migrations
                 {
                     table.PrimaryKey("PK_Bucket", x => x.Id);
                 });
-            
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                  name: "Bucket");
-          
+
         }
     }
 }

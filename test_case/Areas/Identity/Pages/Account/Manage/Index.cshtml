@@ -1,16 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
+﻿@page
+@model IndexModel
 @{
-    ViewData["Title"] = "Профіль";
+    ViewData["Title"] = "Profile";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
+
 <main class="py-3">
   <section class="container">
 
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+      
       <table class="table table-hover">
         <tbody>
           <tr class="table-success">
@@ -19,36 +19,16 @@
           </tr>
         </tbody>
       </table>
-      {% endfor %} {% endif %} {% endwith %}
     </header>
 
     <div class="row">
 
-      <div class="col-md-9">
-
-        <h4>Останнє замовлення</h4>
-
-        <div class="card mb-3" style="max-width: 1040px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{last}}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-
-                <p class="card-text">Цей qr-код, містить в собі ваше замовлення, проскануйте на касі що б отримати замовлення.</p>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+     
       <div class="col-md-3">
 
         <div class="card" style="width: 18rem;">
 
-          <img src=@ViewBag.Message class="card-img-top" alt="...">
+          
 
           <div class="card-body">
             <figure class="text-center">
@@ -90,18 +70,18 @@
               </div>
             </div>
 
-            <div class="dropdown text-end py-3">
+            
+                <div class="dropdown text-end py-3">
               <strong class="dropdown-toggle " role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
     More...
   </strong>
-
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a href="/check" class="dropdown-item">Загальні чеки</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
                 <li>
-                  <form action="/logout" method="POST">
-                    <button type="submit" class="dropdown-item">Logout</button>
-                  </form>
+                  <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a>
                 </li>
+                <li><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+                <li><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
@@ -111,6 +91,7 @@
                 </li>
                 <li><a class="nav-link text-dark px-2">Кількість замовлень  <strong>{{total_orders}}</strong></a></li>
               </ul>
+              
             </div>
           </div>
         </div>
@@ -126,3 +107,7 @@
   </section>
 
 </main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
