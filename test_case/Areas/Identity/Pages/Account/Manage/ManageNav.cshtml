@@ -1,45 +1,15 @@
-﻿@page
-@model IndexModel
-
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using test_case.Areas.Identity.Data
 
 @inject SignInManager<test_caseUser> SignInManager
 @inject UserManager<test_caseUser> UserManager
+
+@model IndexModel
 @{
-    ViewData["Title"] = "Profile";
-    Layout = "/Views/Shared/_Layout.cshtml";
     var user = await UserManager.GetUserAsync(User);
 }
 
-<main class="py-3">
-  <section class="container">
-
-    <partial name="_StatusMessage" for="StatusMessage" />
-
-    <div class="row">
-
-      <div class="col-md-9">
-
-        <h4>Останнє замовлення</h4>
-
-        <div class="card mb-3" style="max-width: 1040px;">
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="{{last}}" class="img-fluid rounded-start" alt="...">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-
-                <p class="card-text">Цей qr-код, містить в собі ваше замовлення, проскануйте на касі що б отримати замовлення.</p>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-3">
+<div class="col-md-3">
 
         <div class="card" style="width: 18rem;">
 
@@ -122,17 +92,3 @@
         </div>
 
       </div>
-    </div>
-
-    <hr>
-    <!-- Button trigger modal -->
-
-    </div>
-
-  </section>
-
-</main>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
