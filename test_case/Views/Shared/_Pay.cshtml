@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using test_case.Areas.Identity.Data
+
+@inject SignInManager<test_caseUser> SignInManager
+@inject UserManager<test_caseUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+@if (SignInManager.IsSignedIn(User))
+{
+ 
+     <form asp-controller="Payment" asp-action="CheckAction">
+            <input name="firstname" id="firstname" class="form-control" value="@user.FirstName" hidden/>
+            <input name="lastname" id="lastname" class="form-control" value="@user.LastName" hidden/>
+            <input name="email" id="email" class="form-control" value="@user.Email"  hidden/>
+            <input name="order" id="order" value="@foreach (var item in Model){@item.Name.Insert(@item.Name.Length, " ") }" hidden/>
+            <input name="price" id="price" value="@ViewBag.totalPrice" hidden/>
+            <input name="roles" id="roles" value="@user.Role" hidden/>
+           <button class="w-100 btn btn-success btn-lg" type="submit">Оплата</button>
+        </form>
+   
+    
+}
+else
+{
+    <form asp-controller="Payment" asp-action="CheckAction">
+        <div class="form-floating">
+                <input name="firstname" id="firstname" class="form-control" aria-required="true" />
+                
+            </div>
+            <div class="form-floating">
+                <input name="lastname" id="lastname" class="form-control" aria-required="true" />
+
+            </div>
+            <div class="form-floating">
+                <input name="email" id="email" class="form-control"  aria-required="true" />
+
+            </div>
+            <input name="order" id="order" value="@foreach (var item in Model){@item.Name.Insert(@item.Name.Length, " ") }" hidden/>
+            <input name="price" id="price" value="@ViewBag.totalPrice" hidden/>
+            <input name="roles" id="roles" value="Guess" hidden/>
+           <button class="w-100 btn btn-success btn-lg" type="submit">Оплата</button>
+           
+            </form>
+}

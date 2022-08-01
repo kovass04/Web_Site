@@ -52,7 +52,7 @@ namespace test_case.Controllers
                         Problem("Entity set 'TaiFoodContext.Rolls'  is null.");
 
         }
-        [HttpPost]
+/*        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(IFormFile file, [Bind("Id,Name,Price,Description,ImagePath")] Wok wok)
         {
@@ -73,16 +73,25 @@ namespace test_case.Controllers
                 return RedirectToAction(nameof(Wok));
             }
             return View(wok);
-        }
+        }*/
 
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add2([Bind("Id,Name,Price,Description,ImagePath")] Roll roll)
+        public async Task<IActionResult> Add(IFormFile file, [Bind("Id,Name,Price,Description,ImagePath")] Roll roll)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    await _bufferedFileUploadService.UploadFile(file);
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction(nameof(Rolls));
+                }
+                roll.ImagePath = "/images/" + file.FileName;
                 _context.Add(roll);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Rolls));

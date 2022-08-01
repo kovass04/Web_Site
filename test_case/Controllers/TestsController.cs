@@ -20,8 +20,13 @@ namespace test_case.Controllers
         {
             _context = context;
         }
-
+        
         // GET: Tests
+        public async Task<IActionResult> Test()
+        {
+           
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
 

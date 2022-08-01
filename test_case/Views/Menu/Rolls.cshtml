@@ -1,8 +1,16 @@
 ﻿@model IEnumerable<test_case.Models.Roll>
-
+@using Microsoft.AspNetCore.Identity
+@using test_case.Areas.Identity.Data
+@inject SignInManager<test_caseUser> SignInManager
+@inject UserManager<test_caseUser> UserManager
 @{
 	ViewData["Title"] = "Роли";
+    var user = await UserManager.GetUserAsync(User);
 }
+
+
+
+
 
 <main>
   <!-- Контейнер Меню -->
@@ -63,7 +71,30 @@
         <!-- Кінець контейнера страви -->
         }
         <!-- Місце додавання нової страви з конструктора -->
+        @if (user.Role == "Admin")
+{
+ 
+     <form asp-controller="Menu" asp-action="Add" enctype="multipart/form-data">
+                <label for="name" class="form-label">Назва</label>
+                <input name="name" id="name" class="form-control" />
 
+                <label for="description" class="form-label">Опис</label>
+                <input name="description" id="description" class="form-control" />
+
+                <label for="price" class="form-label">Ціна</label>
+                <input name="price" id="price" class="form-control" />
+        
+                <div class="mb-3">
+                   
+                    <input type="file" name="file" />
+                </div>
+               
+            <input type="submit" value="Додати" class="btn btn-primary" />
+            
+                </form>
+   
+    
+}
         <!-- Місце додавання нової страви з конструктора -->
 
       </div>

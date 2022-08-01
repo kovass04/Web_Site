@@ -52,7 +52,7 @@ namespace test_case.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Bucket));
         }
-        [HttpPost]
+/*        [HttpPost]
         public async Task<IActionResult> DeleteAll()
         {
             if (_context.Bucket == null)
@@ -69,13 +69,44 @@ namespace test_case.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Bucket));
-        }
+        }*/
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckAction([Bind("Id,FirstName,LastName,Order,Price,Roles,Email")] Check check)
+        {
+            var toDelete = await _context.Bucket.Select(a => new Bucket { Id = a.Id }).ToListAsync();
+            if (ModelState.IsValid)
+            {
+                _context.Add(check);
+                await _context.SaveChangesAsync();
+                if (Bucket != null)
+                {
+                    _context.Bucket.RemoveRange(toDelete);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction(nameof(Bucket));
+            }
+            if (_context.Bucket == null)
+            {
+                return RedirectToAction(nameof(Bucket));
+            }
+
+            
+
+            
+            
+
+            return RedirectToAction(nameof(Bucket));
+        }
+
+
+        /*[HttpPost]
         public async Task<IActionResult> Gener()
         {
             string generatebarcode = Request.Form["text"];
             GeneratedBarcode barcode = IronBarCode.BarcodeWriter.CreateBarcode(generatebarcode, BarcodeWriterEncoding.QRCode).SaveAsJpeg(@"wwwroot\images\qr_codes\QuickStart.jpg");
             return RedirectToAction(nameof(Bucket));
-        }
+        }*/
     }
 }

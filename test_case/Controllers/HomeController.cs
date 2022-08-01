@@ -8,24 +8,31 @@ using Microsoft.EntityFrameworkCore;
 using test_case.Areas.Identity.Data;
 using test_case.Models;
 
+
 namespace test_case.Controllers
 {
     public class HomeController : Controller
     {
+        
         private readonly ILogger<HomeController> _logger;
         private readonly test_caseContext _context;
+        SharedController sharedController;
 
         public HomeController(ILogger<HomeController> logger, test_caseContext context)
         {
             _logger = logger;
             _context = context;
+            sharedController = new SharedController(_context);
         }
+        
         public IActionResult Index()
         {
-            TotalPrice();
+            
+           
+            ViewBag.totalPrice = sharedController.TotalPrice();
             return View();
         }
-        public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
+
 
         public IActionResult Privacy()
         {

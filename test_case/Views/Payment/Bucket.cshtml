@@ -68,7 +68,7 @@
           <!--            </div>-->
           <!--            <span class="text-muted">-75.00 грн</span>&lt;!&ndash; Ціна акції &ndash;&gt;-->
           <!--          </li>&lt;!&ndash; Кінець комірки промо &ndash;&gt;-->
-          <form asp-action="Gener">
+          @*<form asp-action="Gener">
             
             <input name="text" class="form-control" />
             <input type="submit" value="Gener" class="btn btn-primary" />     
@@ -77,7 +77,7 @@
     </form>
               <div>
                     <img src="/images/qr_codes/QuickStart.jpg" class="img-fluid rounded-start">
-                </div>
+                </div>*@
           <li class="list-group-item d-flex justify-content-between">
             <!-- Комірка вартості -->
             <span>Вартість (ГРН)</span>
@@ -101,12 +101,9 @@
           </div>
         </form>
         </div>
-
+        <partial name="_Pay"/>
         <hr class="my-4">
-        <form asp-action="DeleteAll">
-          <button class="w-100 btn btn-success btn-lg" type="submit">Оплата</button>
-          <!-- Кнопка переходу до оплати та обробки введеної інформації -->
-        </form>
+        
 
 
       </div>

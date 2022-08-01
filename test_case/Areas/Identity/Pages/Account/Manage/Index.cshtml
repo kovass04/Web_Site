@@ -26,7 +26,8 @@
         <div class="card mb-3" style="max-width: 1040px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="{{last}}" class="img-fluid rounded-start" alt="...">
+                
+              <img src="" class="img-fluid rounded-start" alt="...">
             </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -42,18 +43,26 @@
       <div class="col-md-3">
 
         <div class="card" style="width: 18rem;">
-
+            @if (Model.Input.ProfilePicture != null)
+                {
+                    <img id="profilePicture" class="img-fluid rounded-start" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+                }
+                else
+                {
+                    <img id="profilePicture" class="img-fluid rounded-start" style="width:350px;height:350px; object-fit:cover" src="/images//profile-picture.png">
+                }
           
 
           <div class="card-body">
             <figure class="text-center">
               <blockquote class="blockquote">
-                <h5>@user.UserName</h5>
+                <h5>@user.FirstName @user.LastName</h5>
               </blockquote>
               <figcaption class="blockquote-footer">
                 @user.Email
               </figcaption>
             </figure>
+            
 
             <button type="button" class="w-100 rounded-pill btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Змінити нік
@@ -65,7 +74,7 @@
               <div class="modal-dialog">
 
                 <div class="modal-content">
-                  <form id="profile-form" method="post">
+                  <form id="profile-form" method="post" enctype="multipart/form-data">
                     <div class="modal-header">
 
                       <h5 class="modal-title" id="exampleModalLabel">Змінити імя</h5>
@@ -74,13 +83,36 @@
                     </div>
 
                     <div class="modal-body">
-                      <input asp-for="Input.Username" class="form-control" />
+                        <input asp-for="Input.Username" class="form-control" hidden />
+                      <input asp-for="Input.FirstName" class="form-control" />
+                      <input asp-for="Input.LastName" class="form-control" />
+
+                      <div class="form-group">
+                <label asp-for="Input.ProfilePicture" style="width: 100%;"></label>
+                @if (Model.Input.ProfilePicture != null)
+                {
+                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Input.ProfilePicture))">
+                }
+                else
+                {
+                    <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="/images/profile-picture.png">
+                }
+                <input type="file"
+                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                       asp-for="Input.ProfilePicture"
+                       class="form-control"
+                       style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                       onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
+            </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
                       <button type="submit" id="update-profile-button" class="btn btn-success">Зберегти зміни</button>
 
                     </div>
+
+
                   </form>
                 </div>
               </div>
@@ -92,30 +124,46 @@
     More...
   </strong>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+                  <li>
+                    <a href="/check" class="dropdown-item">
+                      <img width="19" src="~/images/total_orders2.png"> Загальні чеки
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/Identity/Account/Manage/ChangePassword">
+                      <img width="19" src="~/images/change_password.png"> Змінити пароль
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/Identity/Account/Manage/Email">
+                      <img width="19" src="~/images/change_email.webp"> Змінити email  
+                    </a>
+                  </li>
+                  <!---->
+                  
+                  <!---->
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="nav-link px-2 text-dark"><img width="18" src="~/images/last_seen.png" /><strong> Останній візит</strong> @DateTime.Now.ToString()</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="nav-link text-dark px-2">
+                      <img width="19" src="~/images/total_orders_sum.jpg"> Кількість замовлень  <strong>{{total_orders}}</strong>
+                    </a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  
                 <li>
-                  <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a>
-                </li>
-                <li><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="nav-link px-2 text-dark"><strong>Останній візит</strong> {{last_seen}}</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="nav-link text-dark px-2">Кількість замовлень  <strong>{{total_orders}}</strong></a></li>
-                <li>
-                   
-                                    
-                                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                                        <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                    
-                                        </form>
-                                    
-
-        </li>
-              </ul>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                      <button type="submit" class="nav-link btn btn-link text-dark">
+                        <img width="19" src="~/images/logout.png"> Вийти з акаунту
+                      </button>
+                    </form>
+                  </li>
+                </ul>
               
             </div>
           </div>
@@ -124,7 +172,7 @@
       </div>
     </div>
 
-    <hr>
+
     <!-- Button trigger modal -->
 
     </div>
