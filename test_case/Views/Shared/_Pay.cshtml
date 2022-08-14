@@ -38,7 +38,7 @@ else
             </div>
             <input name="order" id="order" value="@foreach (var item in Model){@item.Name.Insert(@item.Name.Length, " ") }" hidden/>
             <input name="price" id="price" value="@ViewBag.totalPrice" hidden/>
-            <input name="roles" id="roles" value="Guess" hidden/>
+            <input name="roles" id="roles" value="Guest" hidden/>
            <button class="w-100 btn btn-success btn-lg" type="submit">Оплата</button>
            
             </form>

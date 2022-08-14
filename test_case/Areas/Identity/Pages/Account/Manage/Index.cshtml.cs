@@ -17,13 +17,15 @@ namespace test_case.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<test_caseUser> _userManager;
         private readonly SignInManager<test_caseUser> _signInManager;
-
+        private readonly test_caseContext _context;
         public IndexModel(
             UserManager<test_caseUser> userManager,
-            SignInManager<test_caseUser> signInManager)
+            SignInManager<test_caseUser> signInManager,
+            test_caseContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         /// <summary>
@@ -84,9 +86,18 @@ namespace test_case.Areas.Identity.Pages.Account.Manage
                 ProfilePicture = profilePicture
             };
         }
-
+        public IList<test_case.Models.Check> Check { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
+            var check = await (Task.Run(() => _context.Check));
+            check.ToList();
+            //check.ToList();
+
+            //var check2 = check.Result.ToList();
+            var check2 = await (Task.Run(() => check.ToList()));
+
+            Check = check2.Where(u => u.Email == User.Identity.Name.ToString()).ToList();
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -96,9 +107,13 @@ namespace test_case.Areas.Identity.Pages.Account.Manage
             await LoadAsync(user);
             return Page();
         }
-
+      
         public async Task<IActionResult> OnPostAsync()
         {
+            
+
+           
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -146,5 +161,6 @@ namespace test_case.Areas.Identity.Pages.Account.Manage
             StatusMessage = "Ваш профіль оновлено";
             return RedirectToPage();
         }
+       
     }
 }

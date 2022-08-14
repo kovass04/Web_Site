@@ -35,7 +35,7 @@
             <figure class="figure">
               <!-- Контейнер для Зображення -->
 
-              <img src="@item.ImagePath" class="figure-img img-fluid rounded py-2">
+              <img src="@item.ImagePath" style="width:400px;height:250px; object-fit:cover" class="figure-img img-fluid rounded py-2">
               <!-- Зображення страви -->
 
             </figure>
@@ -43,6 +43,10 @@
               <!-- Тіло контейнеру -->
 
               <strong>@item.Name</strong>
+               @*@if (user.Role == "Admin")
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">X</a>
+                                    }*@
               <!-- Назва страви -->
               <p class="card-textcol " style="height: 50px">@item.Description</p>
               <!-- Склад страви -->
@@ -63,7 +67,8 @@
                   
                   <button type="submit" value="Rolls" class="btn btn-success ">Додати</button>
                 </form>
-                <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
+               
+                                    <!-- Кнопка замовлення для додавання в сумми та страви в кошик -->
               </div>
             </div>
           </div>
@@ -71,31 +76,34 @@
         <!-- Кінець контейнера страви -->
         }
         <!-- Місце додавання нової страви з конструктора -->
-        @if (user.Role == "Admin")
-{
- 
-     <form asp-controller="Menu" asp-action="Add" enctype="multipart/form-data">
-                <label for="name" class="form-label">Назва</label>
-                <input name="name" id="name" class="form-control" />
+        @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (user.Role == "Admin")
+                    {
+                        <form asp-controller="Menu" asp-action="Add" enctype="multipart/form-data">
+                            <label for="name" class="form-label">Назва</label>
+                            <input name="name" id="name" class="form-control" />
 
-                <label for="description" class="form-label">Опис</label>
-                <input name="description" id="description" class="form-control" />
+                            <label for="description" class="form-label">Опис</label>
+                            <input name="description" id="description" class="form-control" />
 
-                <label for="price" class="form-label">Ціна</label>
-                <input name="price" id="price" class="form-control" />
-        
-                <div class="mb-3">
-                   
-                    <input type="file" name="file" />
-                </div>
-               
-            <input type="submit" value="Додати" class="btn btn-primary" />
-            
-                </form>
-   
-    
-}
-        <!-- Місце додавання нової страви з конструктора -->
+                            <label for="price" class="form-label">Ціна</label>
+                            <input name="price" id="price" class="form-control" />
+
+                            <div class="mb-3">
+
+                                <input type="file" name="file" />
+                            </div>
+
+                            <input type="submit" value="Додати" class="btn btn-primary" />
+
+                        </form>
+
+
+                    }
+                }
+
+                <!-- Місце додавання нової страви з конструктора -->
 
       </div>
       <!-- Кінець сортування меню по черзі до низу, в 3 блоки -->

@@ -29,13 +29,14 @@ namespace test_case.Controllers
 
         public async Task<IActionResult> Bucket()
         {
-            ViewBag.text = "/images/qr_codes/QuickStart.jpg";
 
             TotalPrice();
             return _context.Bucket != null ?
                         View(await _context.Bucket.ToListAsync()) :
                         Problem("Entity set 'test_caseContext.Test'  is null.");
         }
+        
+
         public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
         public async Task<IActionResult> Delete(int id)
         {
@@ -79,7 +80,7 @@ namespace test_case.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(check);
-                await _context.SaveChangesAsync();
+                // await _context.SaveChangesAsync();
                 if (Bucket != null)
                 {
                     _context.Bucket.RemoveRange(toDelete);
@@ -87,20 +88,26 @@ namespace test_case.Controllers
                 }
                 return RedirectToAction(nameof(Bucket));
             }
-            if (_context.Bucket == null)
-            {
-                return RedirectToAction(nameof(Bucket));
-            }
-
             
-
-            
+    
             
 
             return RedirectToAction(nameof(Bucket));
         }
 
+        [HttpPost]
 
+        public async Task<IActionResult> Promos(string a)
+        {
+            
+            if (a == "newuser")
+            {
+                
+                return RedirectToAction(nameof(Bucket));
+            }
+            else
+            return RedirectToAction(nameof(Bucket));
+        }
         /*[HttpPost]
         public async Task<IActionResult> Gener()
         {
@@ -108,5 +115,6 @@ namespace test_case.Controllers
             GeneratedBarcode barcode = IronBarCode.BarcodeWriter.CreateBarcode(generatebarcode, BarcodeWriterEncoding.QRCode).SaveAsJpeg(@"wwwroot\images\qr_codes\QuickStart.jpg");
             return RedirectToAction(nameof(Bucket));
         }*/
+        
     }
 }
