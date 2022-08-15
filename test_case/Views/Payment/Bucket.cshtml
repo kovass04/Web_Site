@@ -91,10 +91,10 @@
         </ul>
         <!-- Кінець кошику, списку замовлень -->
 
-        <form asp-action="Promos" class="card p-2">
+        <form asp-controller="Shared" asp-action="EnterPromo" class="card p-2">
           <!-- Контейнер вводу промо -->
           <div class="input-group">
-            <input name="a" id="a" type="text" class="form-control" placeholder="Промо код">
+            <input name="promo" id="promo" type="text" class="form-control" placeholder="Промо код">
             <!-- Ввід промо -->
             <button type="submit" class="btn btn-secondary">Ввести</button>
             <!-- Кнопка застосування введеного промо -->
@@ -103,8 +103,8 @@
         </div>
         <partial name="_Pay"/>
         <hr class="my-4">
-        
-
+       
+       
 
       </div>
 

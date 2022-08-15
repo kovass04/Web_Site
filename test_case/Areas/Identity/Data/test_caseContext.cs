@@ -11,12 +11,10 @@ public class test_caseContext : IdentityDbContext<test_caseUser>
     {
     }
     public DbSet<test_case.Models.Test>? Test { get; set; }
-    public DbSet<test_case.Models.Sushi>? Sushi { get; set; }
-    public DbSet<test_case.Models.Wok>? Wok { get; set; }
     public DbSet<test_case.Models.Menu>? Menu { get; set; }
-    public DbSet<test_case.Models.Roll>? Roll { get; set; }
     public DbSet<test_case.Models.Bucket>? Bucket { get; set; }
     public DbSet<test_case.Models.Check>? Check { get; set; }
+    public DbSet<test_case.Models.Promos>? Promos { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

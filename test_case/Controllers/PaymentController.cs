@@ -16,28 +16,24 @@ namespace test_case.Controllers
     {
 
         private readonly test_caseContext _context;
-
+        SharedController sharedController;
+        public string Messege = "asd";
         public PaymentController(test_caseContext context)
         {
             _context = context;
-        }
-        public IActionResult Index()
-        {
-
-            return View();
+            sharedController = new SharedController(_context);
         }
 
         public async Task<IActionResult> Bucket()
         {
-
-            TotalPrice();
+            
+            ViewBag.totalPrice = sharedController.TotalPrice();
             return _context.Bucket != null ?
                         View(await _context.Bucket.ToListAsync()) :
                         Problem("Entity set 'test_caseContext.Test'  is null.");
         }
         
 
-        public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
         public async Task<IActionResult> Delete(int id)
         {
             if (_context.Bucket == null)
@@ -76,7 +72,9 @@ namespace test_case.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckAction([Bind("Id,FirstName,LastName,Order,Price,Roles,Email")] Check check)
         {
+            
             var toDelete = await _context.Bucket.Select(a => new Bucket { Id = a.Id }).ToListAsync();
+            
             if (ModelState.IsValid)
             {
                 _context.Add(check);
@@ -86,28 +84,16 @@ namespace test_case.Controllers
                     _context.Bucket.RemoveRange(toDelete);
                     await _context.SaveChangesAsync();
                 }
-                return RedirectToAction(nameof(Bucket));
-            }
-            
-    
-            
-
-            return RedirectToAction(nameof(Bucket));
-        }
-
-        [HttpPost]
-
-        public async Task<IActionResult> Promos(string a)
-        {
-            
-            if (a == "newuser")
-            {
                 
                 return RedirectToAction(nameof(Bucket));
             }
-            else
+
+
+
+           
             return RedirectToAction(nameof(Bucket));
         }
+
         /*[HttpPost]
         public async Task<IActionResult> Gener()
         {

@@ -27,8 +27,7 @@ namespace test_case.Controllers
         
         public IActionResult Index()
         {
-            
-           
+          
             ViewBag.totalPrice = sharedController.TotalPrice();
             return View();
         }
@@ -36,11 +35,13 @@ namespace test_case.Controllers
 
         public IActionResult Privacy()
         {
+            ViewBag.totalPrice = sharedController.TotalPrice();
             return View();
         }
 
         public IActionResult Stock()
         {
+            ViewBag.totalPrice = sharedController.TotalPrice();
             return View();
         }
 

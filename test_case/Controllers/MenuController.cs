@@ -18,11 +18,13 @@ namespace test_case.Controllers
 
         private readonly test_caseContext _context;
         readonly IBufferedFileUploadService _bufferedFileUploadService;
+        SharedController sharedController;
 
         public MenuController(test_caseContext context, IBufferedFileUploadService bufferedFileUploadService)
         {
             _context = context;
             _bufferedFileUploadService = bufferedFileUploadService;
+            sharedController = new SharedController(_context);
         }
         public IActionResult Index()
         {
@@ -30,26 +32,40 @@ namespace test_case.Controllers
             return View();
         }
         public decimal TotalPrice() => _context.Bucket != null ? ViewBag.totalPrice = _context.Bucket.Sum(x => x.Price) : 0;
+
+        public IList<test_case.Models.Menu> Menu { get; set; }
         public async Task<IActionResult> Wok()
         {
-            TotalPrice();
-            return _context.Wok != null ?
-                        View(await _context.Wok.ToListAsync()) :
-                        Problem("Entity set 'TaiFoodContext.Wok'  is null.");
+            ViewBag.totalPrice = sharedController.TotalPrice();
+            var check = await (Task.Run(() => _context.Menu));
+            check.ToList();
+            var check2 = await (Task.Run(() => check.ToList()));
+            string wok = "WOK";
+            return _context.Menu != null ?
+                View(Menu = check2.Where(u => u.Type == wok).ToList()) :
+                Problem("Entity set 'TaiFoodContext.Wok'  is null.");
         }
         public async Task<IActionResult> Sushi()
         {
-            TotalPrice();
-            return _context.Sushi != null ?
-                        View(await _context.Sushi.ToListAsync()) :
-                        Problem("Entity set 'TaiFoodContext.Sushi'  is null.");
+            ViewBag.totalPrice = sharedController.TotalPrice();
+            var check = await (Task.Run(() => _context.Menu));
+            check.ToList();
+            var check2 = await (Task.Run(() => check.ToList()));
+            string sushi = "SUSHI";
+            return _context.Menu != null ?
+                View(Menu = check2.Where(u => u.Type == sushi).ToList()) :
+                Problem("Entity set 'TaiFoodContext.Wok'  is null.");
         }
         public async Task<IActionResult> Rolls()
         {
-            TotalPrice();
-            return _context.Roll != null ?
-                        View(await _context.Roll.ToListAsync()) :
-                        Problem("Entity set 'TaiFoodContext.Rolls'  is null.");
+            ViewBag.totalPrice = sharedController.TotalPrice();
+            var check = await (Task.Run(() => _context.Menu));
+            check.ToList();
+            var check2 = await (Task.Run(() => check.ToList()));
+            string rolls = "ROLLS";
+            return _context.Menu != null ?
+                View(Menu = check2.Where(u => u.Type == rolls).ToList()) :
+                Problem("Entity set 'TaiFoodContext.Wok'  is null.");
 
         }
 /*        [HttpPost]
@@ -75,11 +91,26 @@ namespace test_case.Controllers
             return View(wok);
         }*/
 
+        public async Task<IActionResult> Delete(int id,string type)
+        {
+            if (_context.Menu == null)
+            {
+                return Problem("Entity set 'test_caseContext.Test'  is null.");
+            }
+            var bucket = await _context.Menu.FindAsync(id);
+            if (bucket != null)
+            {
+                _context.Menu.Remove(bucket);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(($"{type}"));
+        }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(IFormFile file, [Bind("Id,Name,Price,Description,ImagePath")] Roll roll)
+        public async Task<IActionResult> Add(IFormFile file, [Bind("Id,Name,Type,Price,Description,ImagePath")] Menu menu)
         {
             if (ModelState.IsValid)
             {
@@ -89,14 +120,14 @@ namespace test_case.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return RedirectToAction(nameof(Rolls));
+                    return RedirectToAction(menu.Type);
                 }
-                roll.ImagePath = "/images/" + file.FileName;
-                _context.Add(roll);
+                menu.ImagePath = "/images/" + file.FileName;
+                _context.Add(menu);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Rolls));
+                return RedirectToAction(menu.Type);
             }
-            return View(roll);
+            return View(menu);
         }
 
         [HttpPost]
